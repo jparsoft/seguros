@@ -1,0 +1,23 @@
+{
+  "name": "seguros",
+  "version": "1.0.0",
+  "description": "api seguros",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jparsoft/seguros.git"
+  },
+  "author": "José Acuña",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jparsoft/seguros/issues"
+  },
+  "homepage": "https://github.com/jparsoft/seguros#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
+  }
+}
