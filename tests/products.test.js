@@ -41,13 +41,14 @@ describe("Testing endpoints", () => {
     })
     it('respond evaluateProducts data', done => {
         const data = {
-            test: 'test'
+            days: 10
         }
         request(app)
             .post('/evaluateProducts')
             .send(data)
             .set('Accept', 'application/json')
-            .expect('Content-Type', "text/html; charset=utf-8")
+            .expect('Content-Type', "application/json; charset=utf-8")
+            .expect('10')
             .expect(200, done);
     })
 })

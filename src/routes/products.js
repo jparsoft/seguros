@@ -15,8 +15,8 @@ router.post('/listProducts', function (req, res) {
     res.send('Got a POST request listProducts');
 });
 router.post('/evaluateProducts', function (req, res) {
-    const data = req.body;
-    res.send('Got a POST request evaluateProducts');
+    const {days}  = req.body;
+    res.json(days);
 });
 // exportar modulo
 module.exports = router;
