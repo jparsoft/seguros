@@ -4,7 +4,7 @@ const environment = require('../environment');
 const morgan = require('morgan');
 
 // Import routes
-const routes = require('./routes/index');
+const routes = require('./routes/products');
 
 // Settingss
 app.set('port', process.env.PORT || environment.port); /* configure port*/
@@ -18,9 +18,11 @@ app.listen(app.get('port'), () => {
 
 //Middelware
 app.use(morgan('dev')); /* for url logs */
-app.use(express.urlencoded({ extended: false }));/*server only plain text */
-
+// app.use(express.urlencoded({ extended: false }));/*server only plain text */
+app.use(express.json());/*server json data */
 
 
 // Routes
 app.use(routes);
+
+module.exports = app

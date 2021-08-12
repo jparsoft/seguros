@@ -4,7 +4,8 @@
   "description": "api seguros",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "test": "mocha tests/products.test.js --exit"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,8 @@
   "homepage": "https://github.com/jparsoft/seguros#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "morgan": "^1.10.0"
+    "mocha": "^9.0.3",
+    "morgan": "^1.10.0",
+    "supertest": "^6.1.5"
   }
 }
