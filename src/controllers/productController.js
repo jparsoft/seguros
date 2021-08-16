@@ -55,7 +55,7 @@ function getProductById(id) {
 let evaluatedProducts = [];
 
 function evaluateProducts(days) {
-    const loop = Number(days.days);  
+    const loop = Number(days.days);
     for (let day = 0; day < loop; day++) {
         evaluate(day)
     }
@@ -96,7 +96,96 @@ function recalculatePrice(day, baseProduct) {
 
 }
 
+/**
+ * Una vez que la fecha de venta ha pasado, sellIn < 0 , los precios de cada producto, se degradan el doble de rapido.
+ * El precio de un producto, nunca es negativo.
+ * El precio de un producto nunca supera los 100.
+ * El producto "Full cobertura" incrementa su precio a medida que pasa el tiempo.
+ * El producto "Full cobertura Super duper", tal como el "Full Cobertura", incrementa su precio a medida que se acerca su fecha de vencimiento:
+ * - El precio se incrementa en 2 cuando quedan 10 dias o menos y se incrementa en 3, cuando quedan 5 dias o menos.
+ * - El precio disminuye a 0 cuando se vence el tiempo de venta.
+ * El producto "Super avance" dismuniye su precio el doble de rapido que un producto normal.
+ * El producto "Mega cobertura", nunca vence para vender y nunca disminuye su precio.
+ * El producto "Mega cobertura" tiene un precio fijo de 180.
+ */
+function finalizeDay() {
+    environment.products.forEach(product => {
+        recalculateProduct(product)
+    })
+}
 
-function finalizeDay(){}
+function recalculateProduct(product) {
+    for (const key in validations) {
+        if (Object.hasOwnProperty.call(validations, key)) {
+            const status = validations[key](product);
+            if (status) {
+                break;
+            }
 
-module.exports = { getStatus, listSoldProducts, sellProducts, evaluateProducts,finalizeDay };
+        }
+    }
+}
+
+function isId1OrId3(product) {
+    if (product.id === 1 || product.id === 3) {
+        return recalculateId1OrId3(product)
+    } return false;
+}
+function isId2(product) {
+    if (product.id === 2) {
+        return recalculateId2(product)
+    } return false;
+}
+function isId4(product) {
+    if (product.id === 4) {
+        return recalculateId4(product)
+    } return false;
+}
+
+function recalculateId1OrId3(baseProduct) {
+    let product = new Product(baseProduct);
+    baseProduct.sellIn = product.sellIn - 1
+    if (product.sellIn < 10 && product.sellIn > 5) {
+        let newPrice = product.price + 2
+        baseProduct.price = newPrice > 100 ? 100 : newPrice
+    } else if (product.sellIn < 5) {
+        let newPrice = product.price + 3
+        baseProduct.price = newPrice > 100 ? 100 : newPrice
+    } else if (product.sellIn > 10) {
+        let newPrice = product.price + 1
+        baseProduct.price = newPrice > 100 ? 100 : newPrice
+    } else {
+        baseProduct.price = 0
+    }
+    return true;
+}
+
+function recalculateId2(baseProduct) {
+    /* El producto "Mega cobertura", nunca vence para vender y nunca disminuye su precio.
+     El producto "Mega cobertura" tiene un precio fijo de 180. */
+    let product = new Product(baseProduct);
+    baseProduct.sellIn = product.sellIn - 1
+    baseProduct.price = 180
+    return true;
+}
+
+function recalculateId4(baseProduct) {
+    /* El producto "Super avance" dismuniye su precio el doble de rapido que un producto normal.*/
+    let product = new Product(baseProduct);
+    baseProduct.sellIn = product.sellIn - 1
+    let newPrice = product.price - 2
+    baseProduct.price = newPrice > 0 ? newPrice : 0
+    return true;
+}
+
+function recalculateDefault(baseProduct) {
+    let product = new Product(baseProduct);
+    baseProduct.sellIn = product.sellIn - 1
+    let newPrice = product.price - 1
+    baseProduct.price = newPrice > 0 ? newPrice : 0
+    return true;
+}
+
+var validations = [isId1OrId3, isId2, isId4, recalculateDefault]
+
+module.exports = { getStatus, listSoldProducts, sellProducts, evaluateProducts, finalizeDay };

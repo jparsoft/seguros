@@ -10,7 +10,7 @@ let products = [{
 }, {
     id: 2,
     name: 'Mega cobertura',
-    price: 80,
+    price: 180,
     sellIn: 10
 }, {
     id: 3,
