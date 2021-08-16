@@ -109,9 +109,14 @@ function recalculatePrice(day, baseProduct) {
  * El producto "Mega cobertura" tiene un precio fijo de 180.
  */
 function finalizeDay() {
-    environment.products.forEach(product => {
-        recalculateProduct(product)
-    })
+    try {
+        environment.products.forEach(product => {
+            recalculateProduct(product)
+        })
+    } catch (error) {
+        return setMessage(1, error, [])
+    }
+    return setMessage(0, "finalizeDay ok", environment.products)
 }
 
 function recalculateProduct(product) {
@@ -145,17 +150,18 @@ function isId4(product) {
 function recalculateId1OrId3(baseProduct) {
     let product = new Product(baseProduct);
     baseProduct.sellIn = product.sellIn - 1
-    if (product.sellIn < 10 && product.sellIn > 5) {
-        let newPrice = product.price + 2
-        baseProduct.price = newPrice > 100 ? 100 : newPrice
-    } else if (product.sellIn < 5) {
-        let newPrice = product.price + 3
-        baseProduct.price = newPrice > 100 ? 100 : newPrice
-    } else if (product.sellIn > 10) {
+
+    if (baseProduct.sellIn <= 0) {
+        baseProduct.price = 0
+    }else if (baseProduct.sellIn > 10) {
         let newPrice = product.price + 1
         baseProduct.price = newPrice > 100 ? 100 : newPrice
-    } else {
-        baseProduct.price = 0
+    }else if (baseProduct.sellIn <= 10 && baseProduct.sellIn > 5) {
+        let newPrice = product.price + 2
+        baseProduct.price = newPrice > 100 ? 100 : newPrice
+    } else if (baseProduct.sellIn <= 5 && baseProduct.sellIn >=1) {
+        let newPrice = product.price + 3
+        baseProduct.price = newPrice > 100 ? 100 : newPrice
     }
     return true;
 }

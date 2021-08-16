@@ -21,7 +21,7 @@ router.post('/products/evaluateProducts', function (req, res) {
 });
 
 router.post('/products/finalizeDay', function (req, res) {    
-    res.json({});
+    res.json(productController.finalizeDay());
 });
 
 

@@ -5,8 +5,8 @@ const environment = {
 let products = [{
     id: 1,
     name: 'Full cobertura',
-    price: 100,
-    sellIn: 3
+    price: 80,
+    sellIn: 13
 }, {
     id: 2,
     name: 'Mega cobertura',
@@ -16,17 +16,17 @@ let products = [{
     id: 3,
     name: 'Full cobertura Super duper',
     price: 20,
-    sellIn: 3
+    sellIn: 9
 }, {
     id: 4,
     name: 'Super avance',
-    price: 4,
-    sellIn: 1
+    price: 40,
+    sellIn: 3
 }, {
     id: 5,
     name: 'Cobertura',
-    price: 5,
-    sellIn: 0
+    price: 50,
+    sellIn: 2
 }]
 
 let soldProducts = [];
