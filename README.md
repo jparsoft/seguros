@@ -94,3 +94,4 @@ request example:
 ```
 ## NOTES
 _The api includes a crud endpoint service for manipulate data_
+_The api includes a exported [postman file]() for to test endponts_
