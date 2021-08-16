@@ -1,4 +1,5 @@
 class Product {
+    
     constructor(product) {
         this.id = Number(product.id);
         this.name = String(product.name);

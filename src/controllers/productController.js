@@ -36,11 +36,6 @@ function sellProducts(listProducts) {
         setMessage(0, "sold products", { sold: soldProducts, notSold: notSoldProducts }) :
         setMessage(1, "not sold products", { sold: soldProducts, notSold: notSoldProducts });
 }
-
-function evaluateProducts(days) {
-
-}
-
 function addToSoldList(product) {
     let prod = new Product(getProductById(product.id))
     if (prod) {
@@ -57,4 +52,49 @@ function getProductById(id) {
 
 }
 
-module.exports = { getStatus, listSoldProducts, sellProducts };
+let evaluatedProducts = [];
+
+function evaluateProducts(days) {
+    const loop = Number(days);
+    for (let day = 0; index < loop; day++) {
+        evaluate(day)
+    }
+    return evaluatedProducts;
+}
+
+function evaluate(day) {
+    if (day === 0) {
+        evaluatedProducts.push({ "day 0": environment.soldProducts })
+    } else {
+        evaluateByDay(day)
+    }
+
+}
+function evaluateByDay(day) {
+    let tittle = "day " + day;
+    let evaluatedList = []
+
+    for (const key in environment.soldProducts) {
+        if (Object.hasOwnProperty.call(environment.soldProducts, key)) {
+            evaluatedList.push(recalculate(day, environment.soldProducts[key]))
+        }
+    }
+    evaluatedProducts.push({ [tittle]: evaluatedList })
+}
+
+function recalculate(day, product) {
+    let recalculatedProduct = new Product(product);
+    recalculatedProduct.setSellIn(product.sellIn - day)
+    recalculatedProduct.setPrice(recalculatePrice(day, product.price))
+    return recalculatedProduct;
+}
+
+function recalculatePrice(day, basePrice) {
+
+}
+
+function esFullCobertura() {
+
+}
+
+module.exports = { getStatus, listSoldProducts, sellProducts, evaluateProducts };
