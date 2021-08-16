@@ -55,8 +55,8 @@ function getProductById(id) {
 let evaluatedProducts = [];
 
 function evaluateProducts(days) {
-    const loop = Number(days);
-    for (let day = 0; index < loop; day++) {
+    const loop = Number(days.days);  
+    for (let day = 0; day < loop; day++) {
         evaluate(day)
     }
     return evaluatedProducts;
@@ -85,16 +85,18 @@ function evaluateByDay(day) {
 function recalculate(day, product) {
     let recalculatedProduct = new Product(product);
     recalculatedProduct.setSellIn(product.sellIn - day)
-    recalculatedProduct.setPrice(recalculatePrice(day, product.price))
+    recalculatedProduct.setPrice(recalculatePrice(day, product))
     return recalculatedProduct;
 }
 
-function recalculatePrice(day, basePrice) {
+function recalculatePrice(day, baseProduct) {
+    if (baseProduct.price > 0) {
+        return baseProduct.price - day > 0 ? baseProduct.price - day : 0
+    } return 0;
 
 }
 
-function esFullCobertura() {
 
-}
+function finalizeDay(){}
 
-module.exports = { getStatus, listSoldProducts, sellProducts, evaluateProducts };
+module.exports = { getStatus, listSoldProducts, sellProducts, evaluateProducts,finalizeDay };
