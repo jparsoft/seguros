@@ -16,7 +16,7 @@ mainRouter.post('/maintainer/deleteById', function (request, response) {
     response.json(maintainerController.deleteById(id));
 });
 mainRouter.post('/maintainer/updateById', function (request, response) {
-    const { product } = request.body;
+    const product = request.body;
     response.json(maintainerController.updateById(product));
 });
 

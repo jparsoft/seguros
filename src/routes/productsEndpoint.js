@@ -6,15 +6,16 @@ router.get('/', (req, res) => {
     res.json(new Date().toDateString());
 });
 
-router.post('/sell', function (req, res) {    
-    res.send(productController.getStatus());
+router.post('/products/sell', function (req, res) {
+    let products = req.body;
+    res.json(productController.sellProducts(products));
 });
 
-router.post('/listSoldProducts', function (req, res) {
+router.post('/products/listSoldProducts', function (req, res) {
     res.json(productController.listSoldProducts());
 });
 
-router.post('/evaluateProducts', function (req, res) {
+router.post('/products/evaluateProducts', function (req, res) {
     const { days } = req.body;
     res.json(days);
 });

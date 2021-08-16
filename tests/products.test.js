@@ -19,22 +19,21 @@ describe("Testing endpoints", () => {
     })
 
 
-    it('respond sell data', done => {
+    it('Expect url response status 200', done => {
         const data = {
             test: 'test'
         }
         request(app)
-            .post('/sell')
+            .post('/products/sell')
             .send(data)
             .set('Accept', 'application/json')
-            .expect('Content-Type', "text/html; charset=utf-8")
-            .expect('Exito')
+            .expect('Content-Type', "application/json; charset=utf-8")            
             .expect(200, done);
     })
 
     it('respond listSoldProducts data', done => {
         request(app)
-            .post('/listSoldProducts')            
+            .post('/products/listSoldProducts')            
             .set('Accept', 'application/json')
             .expect('Content-Type', "application/json; charset=utf-8")           
             .expect(200, done);
@@ -45,7 +44,7 @@ describe("Testing endpoints", () => {
             days: 10
         }
         request(app)
-            .post('/evaluateProducts')
+            .post('/products/evaluateProducts')
             .send(data)
             .set('Accept', 'application/json')
             .expect('Content-Type', "application/json; charset=utf-8")
