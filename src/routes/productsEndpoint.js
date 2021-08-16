@@ -16,8 +16,12 @@ router.post('/products/listSoldProducts', function (req, res) {
 });
 
 router.post('/products/evaluateProducts', function (req, res) {
-    const { days } = req.body;
+    const days= req.body;
     res.json(days);
+});
+
+router.post('/products/finalizeDay', function (req, res) {    
+    res.json({});
 });
 
 

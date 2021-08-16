@@ -20,22 +20,24 @@ describe("Testing endpoints", () => {
 
 
     it('Expect url response status 200', done => {
-        const data = {
-            test: 'test'
-        }
+        const data = [
+            {
+                "id": 1
+            }
+        ]
         request(app)
             .post('/products/sell')
             .send(data)
             .set('Accept', 'application/json')
-            .expect('Content-Type', "application/json; charset=utf-8")            
+            .expect('Content-Type', "application/json; charset=utf-8")
             .expect(200, done);
     })
 
     it('respond listSoldProducts data', done => {
         request(app)
-            .post('/products/listSoldProducts')            
+            .post('/products/listSoldProducts')
             .set('Accept', 'application/json')
-            .expect('Content-Type', "application/json; charset=utf-8")           
+            .expect('Content-Type', "application/json; charset=utf-8")
             .expect(200, done);
     })
 
@@ -48,7 +50,7 @@ describe("Testing endpoints", () => {
             .send(data)
             .set('Accept', 'application/json')
             .expect('Content-Type', "application/json; charset=utf-8")
-            .expect('10')
+            .expect('{"days":10}')
             .expect(200, done);
     })
 
@@ -64,7 +66,7 @@ describe("Testing productController", () => {
 })
 describe("Testing Class Product.js", () => {
     it("Class product should work", done => {
-        let product={
+        let product = {
             "id": 12,
             "name": "test cobertura",
             "price": 100,
