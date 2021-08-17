@@ -8,7 +8,7 @@ Api Seguros is a rest services based on:
 
 ## Test
 
-Dillinger uses a number of open source projects to work properly:
+Api Seguros uses a number of open source projects to work properly:
 
 - Mocha
 - Supertest
